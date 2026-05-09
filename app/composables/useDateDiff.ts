@@ -1,14 +1,22 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { diffMs, formatDays, formatMinutes, formatSeconds, toDateString, parseDateString } from '~/utils/dateMath'
 
 export function useDateDiff() {
+  const route = useRoute()
+  const router = useRouter()
+
   const firstDateStr = ref<string>('')
   const lastDateStr = ref<string>('')
 
   onMounted(() => {
-    const now = toDateString(new Date())
-    firstDateStr.value = now
-    lastDateStr.value = now
+    const today = toDateString(new Date())
+    lastDateStr.value = (route.query.here as string) || today
+    firstDateStr.value = (route.query.there as string) || today
+  })
+
+  watch([lastDateStr, firstDateStr], ([here, there]) => {
+    router.replace({ query: { here: here || undefined, there: there || undefined } })
   })
 
   const firstDate = computed(() => (firstDateStr.value ? parseDateString(firstDateStr.value) : null))
