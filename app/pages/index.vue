@@ -13,7 +13,7 @@
         />
       </div>
 
-      <!-- Step 2: How far back (shown once birthdate is entered) -->
+      <!-- Step 2: How far back -->
       <div v-if="birthdateStr" class="bg-white rounded-2xl shadow p-6 mb-6">
         <label class="block text-sm font-medium text-gray-600 mb-3">How far back?</label>
         <div class="flex gap-3">
@@ -33,40 +33,42 @@
             <option value="years">years</option>
           </select>
         </div>
-        <p class="text-sm text-gray-500 mt-2">
-          {{ backAmount }} {{ backUnit }} ago was <span class="font-medium text-gray-700">{{ targetDateStr }}</span>
-        </p>
       </div>
 
-      <!-- Negative warning -->
-      <p v-if="isNegative" class="text-red-600 text-center font-medium mb-4">
-        You weren't born yet on that date
-      </p>
+      <template v-if="days !== null">
+        <!-- Prominent date display -->
+        <div class="bg-white rounded-2xl shadow p-8 mb-4 text-center" :class="isNegative ? 'border-2 border-red-300' : ''">
+          <p class="text-sm font-medium uppercase tracking-widest text-gray-400 mb-2">
+            {{ backAmount }} {{ backUnit }} ago
+          </p>
+          <p class="text-5xl font-bold" :class="isNegative ? 'text-red-500' : 'text-gray-800'">
+            {{ targetDateStr }}
+          </p>
+          <p v-if="isNegative" class="text-red-500 text-sm mt-3">You weren't born yet on that date</p>
+        </div>
 
-      <!-- Result cards -->
-      <div v-if="days !== null" class="grid grid-cols-3 gap-4">
-        <div
-          class="bg-white rounded-2xl shadow p-6 text-center"
-          :class="isNegative ? 'text-red-500' : 'text-gray-800'"
-        >
-          <div class="text-3xl font-bold mb-2">{{ days }}</div>
-          <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Days</div>
+        <!-- Informational stats -->
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ days }}</div>
+            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Days</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ minutes?.toLocaleString() }}</div>
+            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Minutes</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ seconds?.toLocaleString() }}</div>
+            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Seconds</div>
+          </div>
         </div>
-        <div
-          class="bg-white rounded-2xl shadow p-6 text-center"
-          :class="isNegative ? 'text-red-500' : 'text-gray-800'"
-        >
-          <div class="text-3xl font-bold mb-2">{{ minutes?.toLocaleString() }}</div>
-          <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Minutes</div>
+
+        <!-- Trivia section -->
+        <div class="bg-white rounded-2xl shadow p-6">
+          <h2 class="text-sm font-medium uppercase tracking-widest text-gray-400 mb-4">Trivia</h2>
+          <p class="text-gray-400 text-sm italic">Coming soon — horoscopes and more.</p>
         </div>
-        <div
-          class="bg-white rounded-2xl shadow p-6 text-center"
-          :class="isNegative ? 'text-red-500' : 'text-gray-800'"
-        >
-          <div class="text-3xl font-bold mb-2">{{ seconds?.toLocaleString() }}</div>
-          <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Seconds</div>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
