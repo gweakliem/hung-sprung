@@ -53,10 +53,17 @@ export function useDateDiff() {
     return diffMs(birthdate.value, targetDate.value)
   })
 
+  const birthdateDaysAgo = computed(() => {
+    if (!birthdate.value) return null
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return Math.floor(diffMs(birthdate.value, today) / 86_400_000)
+  })
+
   const days    = computed(() => (ms.value !== null ? formatDays(ms.value) : null))
   const minutes = computed(() => (ms.value !== null ? formatMinutes(ms.value) : null))
   const seconds = computed(() => (ms.value !== null ? formatSeconds(ms.value) : null))
   const isNegative = computed(() => ms.value !== null && ms.value < 0)
 
-  return { birthdateStr, backAmount, backUnit, targetDate, targetDateStr, days, minutes, seconds, isNegative }
+  return { birthdateStr, backAmount, backUnit, targetDate, targetDateStr, birthdateDaysAgo, days, minutes, seconds, isNegative }
 }

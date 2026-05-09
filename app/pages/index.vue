@@ -4,13 +4,16 @@
       <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">How far back?</h1>
 
       <!-- Step 1: Birthdate -->
-      <div class="bg-white rounded-2xl shadow p-6 mb-6">
+      <div class="bg-white rounded-2xl shadow p-6 mb-2">
         <label class="block text-sm font-medium text-gray-600 mb-1">Your birthdate</label>
         <input
           v-model="birthdateStr"
           type="date"
           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+      </div>
+      <div v-if="birthdateDaysAgo !== null" class="text-center text-sm text-gray-500 mb-6">
+        That was {{ birthdateDaysAgo.toLocaleString() }} days ago
       </div>
 
       <!-- Step 2: How far back -->
@@ -35,15 +38,14 @@
         </div>
       </div>
 
-      <template v-if="days !== null">
-        <!-- Prominent date display -->
-        <div class="bg-white rounded-2xl shadow p-8 mb-4 text-center" :class="isNegative ? 'border-2 border-red-300' : ''">
-          <p class="text-4xl font-bold leading-tight" :class="isNegative ? 'text-red-500' : 'text-gray-800'">
-            {{ backAmount }} {{ backUnit }} ago was {{ targetDateStr }}
-          </p>
-          <p v-if="isNegative" class="text-red-500 text-sm mt-3">You weren't born yet on that date</p>
-        </div>
+      <!-- Target date hero -->
+      <div v-if="birthdateStr && targetDateStr" class="bg-white rounded-2xl shadow p-8 mb-6 text-center">
+        <p class="text-4xl font-bold leading-tight text-gray-800">
+          {{ backAmount }} {{ backUnit }} ago was {{ targetDateStr }}
+        </p>
+      </div>
 
+      <template v-if="days !== null">
         <!-- Informational stats -->
         <div class="grid grid-cols-3 gap-3 mb-6">
           <div class="bg-white rounded-xl shadow-sm p-4 text-center">
@@ -71,5 +73,5 @@
 </template>
 
 <script setup lang="ts">
-const { birthdateStr, backAmount, backUnit, targetDateStr, days, minutes, seconds, isNegative } = useDateDiff()
+const { birthdateStr, backAmount, backUnit, targetDateStr, birthdateDaysAgo, days, minutes, seconds, isNegative } = useDateDiff()
 </script>
