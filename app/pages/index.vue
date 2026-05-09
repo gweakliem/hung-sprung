@@ -38,11 +38,8 @@
       <template v-if="days !== null">
         <!-- Prominent date display -->
         <div class="bg-white rounded-2xl shadow p-8 mb-4 text-center" :class="isNegative ? 'border-2 border-red-300' : ''">
-          <p class="text-sm font-medium uppercase tracking-widest text-gray-400 mb-2">
-            {{ backAmount }} {{ backUnit }} ago
-          </p>
-          <p class="text-5xl font-bold" :class="isNegative ? 'text-red-500' : 'text-gray-800'">
-            {{ targetDateStr }}
+          <p class="text-4xl font-bold leading-tight" :class="isNegative ? 'text-red-500' : 'text-gray-800'">
+            {{ backAmount }} {{ backUnit }} ago was {{ targetDateStr }}
           </p>
           <p v-if="isNegative" class="text-red-500 text-sm mt-3">You weren't born yet on that date</p>
         </div>
