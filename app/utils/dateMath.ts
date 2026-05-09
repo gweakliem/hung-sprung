@@ -20,6 +20,6 @@ export function toDateString(date: Date): string {
 }
 
 export function parseDateString(s: string): Date {
-  const [y, m, d] = s.split('-').map(Number)
-  return new Date(y, m - 1, d)
+  const parts = s.split('-')
+  return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
 }
