@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50 py-10 px-4">
     <div class="max-w-xl mx-auto">
-      <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">How far?</h1>
+      <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Count the Days</h1>
 
       <!-- Step 1: Birthdate -->
       <div class="bg-white rounded-2xl shadow p-6 mb-2">
