@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { diffMs, formatDays, formatMinutes, formatSeconds, toDateString, parseDateString } from '~/utils/dateMath'
+import { diffMs, breakdownDuration, toDateString, parseDateString } from '~/utils/dateMath'
 
 export type Unit = 'days' | 'weeks' | 'months' | 'years'
 
@@ -65,10 +65,10 @@ export function useDateDiff() {
     return Math.floor(diffMs(birthdate.value, today) / 86_400_000)
   })
 
-  const days    = computed(() => (ms.value !== null ? formatDays(ms.value) : null))
-  const minutes = computed(() => (ms.value !== null ? formatMinutes(ms.value) : null))
-  const seconds = computed(() => (ms.value !== null ? formatSeconds(ms.value) : null))
+  const breakdown = computed(() =>
+    birthdate.value && targetDate.value ? breakdownDuration(birthdate.value, targetDate.value) : null
+  )
   const isNegative = computed(() => ms.value !== null && ms.value < 0)
 
-  return { birthdateStr, backAmount, backUnit, backSign, signedAmount, targetDate, targetDateStr, birthdateDaysAgo, days, minutes, seconds, isNegative }
+  return { birthdateStr, backAmount, backUnit, backSign, signedAmount, targetDate, targetDateStr, birthdateDaysAgo, breakdown, isNegative }
 }

@@ -68,20 +68,20 @@
         </p>
       </div>
 
-      <template v-if="days !== null">
+      <template v-if="breakdown !== null">
         <!-- Informational stats -->
         <div class="grid grid-cols-3 gap-3 mb-6">
           <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ days }}</div>
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ breakdown.years.toLocaleString() }}</div>
+            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Years</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ breakdown.months }}</div>
+            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Months</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ breakdown.days }}</div>
             <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Days</div>
-          </div>
-          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ minutes?.toLocaleString() }}</div>
-            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Minutes</div>
-          </div>
-          <div class="bg-white rounded-xl shadow-sm p-4 text-center">
-            <div class="text-lg font-semibold" :class="isNegative ? 'text-red-400' : 'text-gray-700'">{{ seconds?.toLocaleString() }}</div>
-            <div class="text-xs uppercase tracking-wide text-gray-400 mt-1">Seconds</div>
           </div>
         </div>
 
@@ -96,5 +96,5 @@
 </template>
 
 <script setup lang="ts">
-const { birthdateStr, backAmount, backUnit, backSign, targetDateStr, birthdateDaysAgo, days, minutes, seconds, isNegative } = useDateDiff()
+const { birthdateStr, backAmount, backUnit, backSign, targetDateStr, birthdateDaysAgo, breakdown, isNegative } = useDateDiff()
 </script>
